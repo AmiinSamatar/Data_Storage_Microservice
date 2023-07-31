@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Vehicles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #0066cc;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        b {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>View Vehicles</h1>
+    <ul>
+        {% for vehicle in vehicles %}
+            <li>
+                <b>{{ vehicle.make }} {{ vehicle.model }}</b> ({{ vehicle.year }}), Mileage: {{ vehicle.mileage }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
