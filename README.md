@@ -20,14 +20,53 @@ Communication Contract for Requesting and Receiving Data from the Microservice:
 
 ### 4.Requesting Data from the Microservice:
 -The requester will programmatically send a request to the microservice using Python's requests library.
--The request will be made to the appropriate endpoint of the microservice, such as ```LINK/add_vehicle or /get_vehicles.```.
+-The request will be made to the appropriate endpoint of the microservice, such as ```URL/add_vehicle```.
 Necessary data and parameters, such as vehicle details for adding or retrieving, will be included in the request.
+##### Requesting to add vehicle Example:
+```
+import requests
+
+# URL of the data storage microservice
+DATA_STORAGE_URL = 'http://127.0.0.1:5000'
+
+# Data to be sent in the request
+data = {
+    'make': 'Toyota',
+    'model': 'Camry',
+    'year': 2022,
+    'mileage': 15000.5
+}
+
+# Send the POST request to add_vehicle endpoint
+response = requests.post(f'{DATA_STORAGE_URL}/add_vehicle', json=data)
+
+if response.status_code == 201:
+    print('Vehicle added successfully!')
+else:
+    print('Failed to add vehicle.')
+```
 
 ### 5.Receiving Data from the Microservice:
 -The requester will handle the response received from the microservice programmatically.
--After sending a request, the requester will use Python's requests library to receive the response from the microservice.
+-After sending a requests (```URL/get_vehicles.```) the requester will use Python's requests library to receive the response from the microservice.
 -If successful, the response will contain the requested data, which can be extracted and used by the requester.
+#### Requesting to get vehicle Example:
+```
+import requests
 
+# URL of the data storage microservice
+DATA_STORAGE_URL = 'http://127.0.0.1:5000'
+
+# Send the GET request to get_vehicles endpoint
+response = requests.get(f'{DATA_STORAGE_URL}/get_vehicles')
+
+if response.status_code == 200:
+    vehicles = response.json()
+    for vehicle in vehicles:
+        print(f'{vehicle["make"]} {vehicle["model"]} ({vehicle["year"]}), Mileage: {vehicle["mileage"]}')
+else:
+    print('Failed to get vehicles.')
+```
 ## UML:
 ![image](https://github.com/AmiinSamatar/Data_Storage_Microservice/assets/138237129/fd744c33-f742-4113-8860-d400c9a633c1)
 
