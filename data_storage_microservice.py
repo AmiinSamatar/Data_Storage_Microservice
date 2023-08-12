@@ -28,6 +28,7 @@ def create_table():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS vehicles (
                 id INTEGER PRIMARY KEY,
+                vin TEXT NOT NULL,  -- Adding VIN field
                 make TEXT NOT NULL,
                 model TEXT NOT NULL,
                 year INTEGER NOT NULL,
@@ -46,6 +47,7 @@ def index():
 @app.route('/add_vehicle', methods=['POST'])
 def add_vehicle():
     data = request.get_json()
+    vin = data['vin']  # Retrieve VIN from JSON data
     make = data['make']
     model = data['model']
     year = data['year']
@@ -54,9 +56,9 @@ def add_vehicle():
     with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute('''
-            INSERT INTO vehicles (make, model, year, mileage)
-            VALUES (?, ?, ?, ?)
-        ''', (make, model, year, mileage))
+            INSERT INTO vehicles (vin, make, model, year, mileage)
+            VALUES (?, ?, ?, ?, ?)
+        ''', (vin, make, model, year, mileage))
         conn.commit()
 
     return jsonify({'message': 'Vehicle added successfully'}), 201
@@ -73,10 +75,11 @@ def get_vehicles():
         for vehicle in vehicles:
             vehicle_data = {
                 'id': vehicle[0],
-                'make': vehicle[1],
-                'model': vehicle[2],
-                'year': vehicle[3],
-                'mileage': vehicle[4],
+                'vin': vehicle[1],  # Include VIN in response
+                'make': vehicle[2],
+                'model': vehicle[3],
+                'year': vehicle[4],
+                'mileage': vehicle[5],  # Adjust indexing for VIN field
             }
             vehicle_list.append(vehicle_data)
 
