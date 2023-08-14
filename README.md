@@ -68,7 +68,8 @@ else:
     print('Failed to get vehicles.')
 ```
 ## UML:
-![image](https://github.com/AmiinSamatar/Data_Storage_Microservice/assets/138237129/fd744c33-f742-4113-8860-d400c9a633c1)
+![image](https://github.com/AmiinSamatar/Data_Storage_Microservice/assets/138237129/16c02b37-b190-412e-bfe0-c52784a82383)
+
 
 In the diagram, the client sends a POST request to the /add_vehicle endpoint with the vehicle data in JSON format. The microservice processes the request, adds the new vehicle to the database, and responds with a status code 201 (Created) if the addition is successful.
 
